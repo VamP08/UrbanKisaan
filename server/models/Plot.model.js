@@ -23,8 +23,11 @@ const PlotSchema = new mongoose.Schema({
     detectstatus: {
         type: String,
         ref: Detect
-    } 
-    
+    }, 
+    cropsowingdate: {
+        type: Date,
+        required: true,
+    }
 });
 
 // Pre-save hook to generate sequential plotid

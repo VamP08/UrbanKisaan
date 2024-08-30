@@ -15,9 +15,9 @@ const cropSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    cropsowingdate: {
-        type: Date,
-        required: true,
+    optimalstate: {
+        type: String,
+        required: true
     }
     
 }, { timestamps: true } );
