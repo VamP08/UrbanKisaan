@@ -6,5 +6,6 @@ import { postenv } from "../controllers/dashboard.controller.js";
 
 const router = express.Router();
 
-router.post('/dashboard', verifytoken, postenv)
+router.post('/dashboard', verifytoken, postenv);
+
 export default router;

@@ -1,6 +1,5 @@
-import Crop from "../models/crop.model";
-import Env from "../models/environment.model";
-import User from "../models/user.model";
+import Crop from "../models/crop.model.js";
+import Env from "../models/environment.model.js";
 
 export const postenv = async (req, res, next) => {
     try {
@@ -11,23 +10,21 @@ export const postenv = async (req, res, next) => {
             const userid = req.user.userid;
             const cityname = req.user.cityname;
             
-            // Recommended crops based on suitable temperature, humidity, cityname and annual rainfall
-            const crops = ["maize","rice","wheat"];
+            // List of crops based on your ML model
+            const crops = ["wheat", "rice", "maize"];
 
-            try {
-                const validcrop = await Crop.findOne({crops});
-                if (!validcrop){
-                    return next(errorhandler(404,'User not found!'));
-                }
-            }
-            catch (error) {
-                next(error);
+            // Find the crop details for the selected crops
+            const cropDetails = await Crop.find({ name: { $in: crops } });
+
+            if (!cropDetails || cropDetails.length === 0) {
+                return next(new Error('No crop details found!'));
             }
 
+            // Save the environment data
             const newenv = new Env({ temperature, humidity, cityname, userid });
-
             await newenv.save();
 
+            // Respond with environment data and crop details
             res.status(201).json({
                 success: true,
                 message: "Environment data saved successfully",
@@ -35,6 +32,7 @@ export const postenv = async (req, res, next) => {
                     cityname,
                     temperature,
                     humidity,
+                    cropDetails, // Include crop details in the response
                 },
             });
         } else {

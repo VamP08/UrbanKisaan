@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import Crop from "./crop.model";
-import Disease from "./disease.model";
-import User from "./user.model";
-import Detect from "./diseasedetection.model";
+import Crop from "./crop.model.js";
+import User from "./user.model.js";
+import Detect from "./diseasedetection.model.js";
 
 const PlotSchema = new mongoose.Schema({
     Plotid: {

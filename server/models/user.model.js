@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import State from "./city.model";
-import city from "./city.model";
+import city from "./city.model.js";
 
 const userSchema = new mongoose.Schema({
     userid: {

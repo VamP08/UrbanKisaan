@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import State from "./city.model";
-import User from "./user.model";
+import State from "./city.model.js";
+import User from "./user.model.js";
 
 const envSchema = new mongoose.Schema({
     envid: {

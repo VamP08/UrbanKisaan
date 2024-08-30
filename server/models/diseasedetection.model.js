@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import State from "./State.model";
-import User from "./user.model";
-import Crop from "./crop.model";
-import city from "./city.model";
+import User from "./user.model.js";
+import Crop from "./crop.model.js";
+import city from "./city.model.js";
 
 
 const detectSchema = new mongoose.Schema({
