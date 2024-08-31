@@ -5,7 +5,7 @@ dotenv.config();
 
 export const verifytoken = (req,res,next) => {
     const token = req.cookies.access_token;
-
+    console.log('h')
     if (!token) return next(errorhandler(401,'Unauthorized'));
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return next(errorhandler(403,'Forbidden'))

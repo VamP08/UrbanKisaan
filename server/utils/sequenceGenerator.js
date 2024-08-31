@@ -1,4 +1,4 @@
-import Counter from './counter.model.js';
+import Counter from '../models/counter.model.js';
 
 async function getNextSequenceValue(sequenceName) {
     try {
@@ -13,3 +13,5 @@ async function getNextSequenceValue(sequenceName) {
         throw new Error('Error in generating sequence: ' + error.message);
     }
 }
+
+export { getNextSequenceValue };

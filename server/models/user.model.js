@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import city from "./city.model.js";
+import { getNextSequenceValue } from "../utils/sequenceGenerator.js";
 
 const userSchema = new mongoose.Schema({
     userid: {
         type: Number,
-        required: true,
         unique: true
     },
     username: {

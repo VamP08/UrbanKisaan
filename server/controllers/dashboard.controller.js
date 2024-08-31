@@ -1,9 +1,10 @@
 import Crop from "../models/crop.model.js";
 import Env from "../models/environment.model.js";
+import User from "../models/user.model.js";
 
-export const postenv = async (req, res, next) => {
+export const dashboard = async (req, res, next) => {
     try {
-        if (req.user.id) {
+        if (req.user && req.user.id) {
             // Simulate temperature and humidity data for now
             const temperature = 25; // Replace with actual data later
             const humidity = 50;    // Replace with actual data later

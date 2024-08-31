@@ -1,11 +1,10 @@
 import express from "express";
 import { userInfo } from "os";
-import { test,updateUser } from "../controllers/user.controller.js";
 import { verifytoken } from "../utils/verifyuser.js";
-import { postenv } from "../controllers/dashboard.controller.js";
+import { dashboard} from "../controllers/dashboard.controller.js";
 
 const router = express.Router();
 
-router.post('/dashboard', verifytoken, postenv);
+router.post('/home',verifytoken, dashboard);
 
 export default router;
