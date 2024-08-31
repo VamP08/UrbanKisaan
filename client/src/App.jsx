@@ -5,13 +5,18 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import About from './pages/About';
 import Header from './components/Header';
+import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
+import ErrorBoundary from './components/ErrorBoundary';
+
 
 export default function App() {
   return (
     <BrowserRouter>
     <Header />
+      <ErrorBoundary>
       <Routes>
+        <Route path='/' element={<Dashboard />} />
         <Route path='/' element={<Home />} />
         <Route path='/sign-in' element={<Signin />} />     
         <Route path='/sign-up' element={<Signup />} />
@@ -20,6 +25,7 @@ export default function App() {
         </Route>
         <Route path='/about' element={<About />} />
       </Routes>
+      </ErrorBoundary>
     </BrowserRouter>
   )
 }

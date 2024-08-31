@@ -30,14 +30,25 @@ export const signin = async (req,res,next) => {
         if (!validpassword){
             return next(errorhandler(401, 'Wrong Credentials'));
         }
-        const token = jwt.sign({ id: validuser._id}, process.env.JWT_SECRET);
-        const { password:pass, ...rest } = validuser._doc;
-        res
-        .cookie('access_token', token, { httpOnly:true })
-        .status(200)
-        .json(rest);
-    }
-    catch (error) {
+        const token = jwt.sign({ id: validuser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        
+        // Send this token back to the client
+        res.json({ success: true, token });
+
+        // Return user data (excluding password)
+        const { password: pass, ...rest } = validuser._doc;
+        res.status(200).json(rest);
+    } catch (error) {
         next(error);
     }
 }
+
+export const signout = (req, res, next) => {
+    try {
+        // Clear the cookie by setting its expiry date to the past
+        res.cookie('access_token', '', { httpOnly: true, expires: new Date(0) });
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        next(error);
+    }
+};

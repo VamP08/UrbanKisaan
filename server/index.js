@@ -5,6 +5,7 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import dashboardRouter from './routes/dashboard.route.js';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'; 
 dotenv.config();
 
 mongoose
@@ -17,6 +18,13 @@ mongoose
     });
     
 const app = express();
+
+// CORS configuration
+app.use(cors({
+    origin: 'http://127.0.0.1:5173', // Replace with your frontend domain
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser())
 
