@@ -11,6 +11,10 @@ const cropSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    cropdescription: {
+        type:String,
+        required:true,
+    },
     optimalseason: {
         type: String,
         required: true

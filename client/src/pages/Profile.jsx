@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom';
+import { signOut } from '../redux/user/user.Slice.js';
 
 export default function Profile() {
   const {currentuser} = useSelector((state) => state.user);
-  const handleSignout = () => {
-    fetch('/server/auth/signout', {
-        method: 'POST',
-        credentials: 'include' // Ensure cookies are sent with the request
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message === 'Logged out successfully') {
-            // Redirect to login page or show a success message
-            window.location.href = '/sign-in';
-        }
-    })
-    .catch(err => {
-        console.error('Error signing out:', err);
-    });
-};
+  console.log(currentuser)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const handleSignout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem('token');
+    // Dispatch the signOut action to clear the Redux state
+    dispatch(signOut());
+    navigate('/')
+  }
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>

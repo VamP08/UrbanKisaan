@@ -16,19 +16,24 @@ export const dashboard = async (req, res, next) => {
         console.log("User authenticated:", req.user);
 
         if (req.user && req.user.id) {
-            console.log("hello")
             // Simulate temperature and humidity data for now
             const temperature = 25; // Replace with actual data later
             const humidity = 50;    // Replace with actual data later
-            const validuser = await User.findOne(req.user.id);
-            console.log(req.user)
-            console.log(validuser.cityname)
 
+            const validuser = await User.findById(req.user.id);
+            if (!validuser) {
+                return next(new Error('User not found!'));
+            }
+
+            console.log("User found:", validuser);
+            // Access cityname from the found user
+            const cityname = validuser.cityname;
+            
             // List of crops based on your ML model
-            const crops = ["wheat", "rice", "maize"];
+            const cropname = ["Wheat", "Rice", "Apple"];
 
             // Find the crop details for the selected crops
-            const cropDetails = await Crop.find({ name: { $in: cropname } });
+            const cropDetails = await Crop.find({ cropname: { $in: cropname } });
 
             if (!cropDetails || cropDetails.length === 0) {
                 return next(new Error('No crop details found!'));
@@ -36,14 +41,15 @@ export const dashboard = async (req, res, next) => {
 
             // Format crop details to match your requirements
             const formattedCropDetails = cropDetails.map(crop => ({
-            cropid: crop.cropid,
-            name: crop.cropname,
-            optimalSeason: crop.optimalseason,
-            optimalState: crop.optimalstate
-        }));
+                cropid: crop.cropid,
+                name: crop.cropname,
+                description: crop.cropdescription,
+                optimalSeason: crop.optimalseason,
+                optimalState: crop.optimalstate
+            }));
 
             // Save the environment data
-            const newenv = new Env({ temperature, humidity, cityname, userid });
+            const newenv = new Env({ temperature, humidity, cityname, userid:req.user.id });
             await newenv.save();
 
             // Respond with environment data and crop details

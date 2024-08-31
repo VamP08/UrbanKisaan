@@ -23,10 +23,17 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    signOut: (state) => {
+      // Reset the state to the initial state when signing out
+      console.log("hi")
+      state.currentUser = null;
+      state.loading = false;
+      state.error = null;
+    },
     // ... other reducers
   },
 });
 
-export const { signInStart, signInSuccess, signInFailure } = userSlice.actions;
+export const { signInStart, signInSuccess, signInFailure, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

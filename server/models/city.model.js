@@ -9,7 +9,6 @@ const citySchema = new mongoose.Schema({
     cityname: {
         type: String,
         required: true,
-        unique: true,
     },
 }, { timestamps: true } );
 /* timestamps will help in storing two extra information 

@@ -8,7 +8,11 @@ import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import ErrorBoundary from './components/ErrorBoundary';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from 'react-modal';
 
+// Bind the modal to the root element
+Modal.setAppElement('#root');
 
 export default function App() {
   return (

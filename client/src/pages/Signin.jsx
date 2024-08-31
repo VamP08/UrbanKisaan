@@ -19,6 +19,7 @@ export default function Signin() {
       ...formdata,
       [e.target.id]: e.target.value,
     });
+    console.log(formdata)
   };
 
   const handlesubmit = async (e) => {

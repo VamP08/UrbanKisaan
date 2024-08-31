@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import State from "./city.model.js";
 import User from "./user.model.js";
+import { getNextSequenceValue } from "../utils/sequenceGenerator.js";
 
 const envSchema = new mongoose.Schema({
     envid: {
         type: Number,
-        required: true,
-        unique: true,
     },
     temperature: {
         type: Number,
@@ -19,11 +18,10 @@ const envSchema = new mongoose.Schema({
     cityname: {
         type: String,
         required: true,
-        unique: true,
         ref: User
     },
     userid: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: User
     }

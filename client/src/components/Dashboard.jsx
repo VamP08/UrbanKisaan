@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
+import { Modal,Button, Form } from 'react-bootstrap';
 
 const Dashboard = () => {
     const [environmentData, setEnvironmentData] = useState(null);
     const [cropDetails, setCropDetails] = useState(null);
     const [error, setError] = useState(null);
+
     useEffect(() => {
         const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
         if (!token) {
@@ -63,6 +65,14 @@ const Dashboard = () => {
                     </li>
                 ))}
             </ul>
+            <div>
+            {/* Button to open the modal */}
+            <Button variant="primary">
+                Open Add plot Page
+            </Button>
+
+            
+            </div>
         </div>
     );
 };

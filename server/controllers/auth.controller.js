@@ -43,12 +43,3 @@ export const signin = async (req,res,next) => {
     }
 }
 
-export const signout = (req, res, next) => {
-    try {
-        // Clear the cookie by setting its expiry date to the past
-        res.cookie('access_token', '', { httpOnly: true, expires: new Date(0) });
-        res.status(200).json({ message: 'Logged out successfully' });
-    } catch (error) {
-        next(error);
-    }
-};
