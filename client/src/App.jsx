@@ -22,6 +22,8 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Dashboard />} />
         <Route path='/' element={<Home />} />
+        <Route path='/detect' element={<Detect-Disease />} />     
+        <Route path='/community' element={<Community />} />     
         <Route path='/sign-in' element={<Signin />} />     
         <Route path='/sign-up' element={<Signup />} />
         <Route element={<PrivateRoute />}>

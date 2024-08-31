@@ -4,6 +4,7 @@ import dotenv  from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import dashboardRouter from './routes/dashboard.route.js';
+import detectdiseaseRouter from './routes/detectdisease.route.js'
 import cookieParser from 'cookie-parser';
 import cors from 'cors'; 
 dotenv.config();
@@ -36,6 +37,7 @@ app.listen(5176, () => {
 app.use("/server/user",userRouter);
 app.use("/server/auth",authRouter);
 app.use("/server/dashboard",dashboardRouter);
+app.use("/server/detectdisease",detectdiseaseRouter);
 
 app.use((err, req, res, next) => {
     const statuscode = err.statuscode || 500;
