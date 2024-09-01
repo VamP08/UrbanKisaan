@@ -32,10 +32,11 @@ const Dashboard = () => {
                 }
 
                 const data = await response.json();
+                
                 if (data.success) {
                     setEnvironmentData(data.data);
                     setCropDetails(data.data.cropDetails);
-                    setPlotDetails(data.data.plotDetails || []);
+                    setPlotDetails(data.data.populatedPlotDetails || []);
                 } else {
                     setError(data.message);
                 }
@@ -72,8 +73,10 @@ const Dashboard = () => {
             <ul>
                 {cropDetails.map((crop, index) => (
                     <li key={index}>
-                        <h3>{crop.name}</h3>
-                        <p>{crop.details}</p> {/* Replace with actual fields */}
+                        <h3>Name : {crop.name}</h3>
+                        <p>description: {crop.description}</p> 
+                        <p>Season: {crop.optimalseason}</p>
+                        <p>State: {crop.optimalstate}</p>
                     </li>
                 ))}
             </ul>
@@ -86,7 +89,7 @@ const Dashboard = () => {
                     {plotDetails.map((plot, index) => (
                         <li key={index}>
                             <h3>Plot ID: {plot.Plotid}</h3>
-                            <p>Crop: {plot.cropid.cropname}</p>
+                            <p>Crop: {plot.cropname}</p>
                             <p>Sowing Date: {new Date(plot.cropsowingdate).toLocaleDateString()}</p>
                             <p>Detection Status: {plot.detectstatus || 'Not detected'}</p>
                         </li>

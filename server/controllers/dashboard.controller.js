@@ -13,14 +13,11 @@ export const dashboard = async (req, res, next) => {
             });
         }
 
-        console.log("User authenticated:", req.user);
-
         const validuser = await User.findById(req.user.id);
         if (!validuser) {
             return next(new Error('User not found!'));
         }
 
-        console.log("User found:", validuser);
         const cityname = validuser.cityname;
 
         // Simulate temperature and humidity data for now
@@ -52,8 +49,18 @@ export const dashboard = async (req, res, next) => {
 
         // Fetch plot details for the user
         const plotDetails = await Plot.find({ userid: req.user.id })
-            .populate('cropid', 'cropname')
             .select('Plotid cropid cropsowingdate detectstatus');
+        
+        // Manually populate crop details
+        const populatedPlotDetails = await Promise.all(
+            plotDetails.map(async (plot) => {
+                const crop = await Crop.findOne({ cropid: plot.cropid }).select('cropname');
+                return {
+                    ...plot._doc,
+                    cropname: cropname ? crop.cropname : null, // Add cropname to the plot details
+                };
+            })
+        );
 
         // Respond with environment data, crop details, and plot details
         res.status(200).json({
@@ -64,14 +71,15 @@ export const dashboard = async (req, res, next) => {
                 temperature,
                 humidity,
                 cropDetails: formattedCropDetails,
-                plotDetails: plotDetails.map(plot => ({
+                populatedPlotDetails: populatedPlotDetails.map(plot => ({
                     Plotid: plot.Plotid,
-                    cropName: plot.cropid.cropname,
+                    cropname: plot.cropname,
                     cropsowingdate: plot.cropsowingdate,
                     detectstatus: plot.detectstatus || 'Not detected'
                 }))
             },
         });
+
     } catch (error) {
         console.error("Dashboard error:", error);
         res.status(500).json({
