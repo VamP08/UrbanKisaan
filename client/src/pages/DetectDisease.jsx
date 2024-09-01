@@ -47,11 +47,11 @@ const DiseaseDetection = () => {
     };
 
     const handleDiseaseClick = () => {
-        navigate('/disease');
+        navigate('/disease', { state: { disease } });
     };
 
     const handleCropClick = () => {
-        navigate('/crop');
+        navigate('/crop', { state: { crop } });
     };
 
     return (

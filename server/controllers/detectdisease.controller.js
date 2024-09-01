@@ -20,13 +20,11 @@ export const detectDisease = async (req, res, next) => {
             return next(new Error('User not found!'));
         }
 
-        console.log(req.body)
         const plotid  = req.body.plotid;
         const file  = req.file;  // Assuming you're using a library like 'multer' to handle file uploads
 
         // Process the image using your neural network model
         //const predictedDisease = await processImage(file);
-        console.log("Hello")
         const predictedDisease = "Apple scab"
         let diseaseName = 'Healthy';
         let diseaseId = null;
