@@ -1,8 +1,7 @@
 import React from 'react';
 
-const Community = () =>{
+export default function Crop() {
   return (
     <div>Home</div>
   );
 }
-export default Community;

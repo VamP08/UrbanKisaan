@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 import Crop from "./crop.model.js";
 import User from "./user.model.js";
 import Detect from "./diseasedetection.model.js";
+import { getNextSequenceValue } from "../utils/sequenceGenerator.js";
 
 const PlotSchema = new mongoose.Schema({
     Plotid: {
         type: Number,
-        required: true,
-        unique: true
+
     },
     userid: {
-        type: Number,
+        type: String,
         required: true,
         ref: User
     },
@@ -21,7 +21,8 @@ const PlotSchema = new mongoose.Schema({
     },
     detectstatus: {
         type: String,
-        ref: Detect
+        ref: Detect,
+        default: "Not detected"
     }, 
     cropsowingdate: {
         type: Date,
@@ -32,7 +33,7 @@ const PlotSchema = new mongoose.Schema({
 // Pre-save hook to generate sequential plotid
 PlotSchema.pre('save', async function (next) {
     if (this.isNew) {
-        this.plotid = await getNextSequenceValue('plotid');
+        this.Plotid = await getNextSequenceValue('Plotid');
     }
     next();
 });

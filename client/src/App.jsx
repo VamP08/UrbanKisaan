@@ -4,6 +4,11 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import About from './pages/About';
+import AddPlot from './pages/AddPlot';
+import Disease from './pages/Disease';
+import Crop from './pages/Crop';
+import DetectDisease from './pages/DetectDisease';
+import Community from './pages/Community';
 import Header from './components/Header';
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
@@ -22,7 +27,10 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Dashboard />} />
         <Route path='/' element={<Home />} />
-        <Route path='/detect' element={<Detect-Disease />} />     
+        <Route path='/add-plot' element={<AddPlot />} />
+        <Route path='/disease' element={<Disease />} />
+        <Route path='/crop' element={<Crop />} />
+        <Route path='/detect' element={<DetectDisease />} />     
         <Route path='/community' element={<Community />} />     
         <Route path='/sign-in' element={<Signin />} />     
         <Route path='/sign-up' element={<Signup />} />

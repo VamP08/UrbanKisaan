@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'; 
 import { Modal,Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
     const [environmentData, setEnvironmentData] = useState(null);
     const [cropDetails, setCropDetails] = useState(null);
+    const [plotDetails, setPlotDetails] = useState([]);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
@@ -12,33 +15,42 @@ const Dashboard = () => {
             setError('No token found. Please log in.');
             return;
         }
-        fetch('/server/dashboard/home', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            credentials: 'include'
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(err => { throw err; });
+        const fetchDashboardData = async () => {
+            try {
+                const response = await fetch('/server/dashboard/home', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to fetch dashboard data');
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    setEnvironmentData(data.data);
+                    setCropDetails(data.data.cropDetails);
+                    setPlotDetails(data.data.plotDetails || []);
+                } else {
+                    setError(data.message);
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+                setError(err.message || 'An error occurred');
             }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                setEnvironmentData(data.data);
-                setCropDetails(data.data.cropDetails);
-            } else {
-                setError(data.message);
-            }
-        })
-        .catch(err => {
-            console.error('Fetch error:', err);
-            setError(err.message || 'An error occurred');
-        });
+        };
+
+        fetchDashboardData();
     }, []);
+
+    const handleAddPlot = () => {
+        navigate('/add-plot');
+    };
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -66,14 +78,27 @@ const Dashboard = () => {
                 ))}
             </ul>
             <div>
-            {/* Button to open the modal */}
-            <Button variant="primary">
-                Open Add plot Page
-            </Button>
+            <h2>Your Plots</h2>
+            {plotDetails.length === 0 ? (
+                <p>You don't have any plots yet. Add one below!</p>
+            ) : (
+                <ul>
+                    {plotDetails.map((plot, index) => (
+                        <li key={index}>
+                            <h3>Plot ID: {plot.Plotid}</h3>
+                            <p>Crop: {plot.cropid.cropname}</p>
+                            <p>Sowing Date: {new Date(plot.cropsowingdate).toLocaleDateString()}</p>
+                            <p>Detection Status: {plot.detectstatus || 'Not detected'}</p>
+                        </li>
+                    ))}
+                </ul>
+            )}
 
-            
-            </div>
-        </div>
+            <Button variant="primary" onClick={handleAddPlot}>
+                Add New Plot
+            </Button>
+        </div>        
+    </div>
     );
 };
 

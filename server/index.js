@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import dotenv  from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
+import plotRouter from './routes/plot.route.js';
+import cropRouter from './routes/crop.route.js';
 import dashboardRouter from './routes/dashboard.route.js';
 import detectdiseaseRouter from './routes/detectdisease.route.js'
 import cookieParser from 'cookie-parser';
@@ -34,6 +36,8 @@ app.listen(5176, () => {
     }
 );
 
+app.use('/server/crop', cropRouter);
+app.use('/server/plot', plotRouter);
 app.use("/server/user",userRouter);
 app.use("/server/auth",authRouter);
 app.use("/server/dashboard",dashboardRouter);

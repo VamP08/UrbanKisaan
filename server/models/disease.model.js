@@ -22,6 +22,10 @@ const disSchema = new mongoose.Schema({
     diseaseprevention: {
         type: String,
         required: true,
+    },
+    diseasefertilizer: {
+        type: String,
+        required: true,
     }
     
 }, { timestamps: true } );

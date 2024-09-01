@@ -5,7 +5,6 @@ const cropSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true,
-        required: true
     },
     cropname: {
         type: String,

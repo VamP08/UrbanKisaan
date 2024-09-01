@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import User from "./user.model.js";
 import Crop from "./crop.model.js";
-import city from "./city.model.js";
-
+import Disease from "./disease.model.js";
+import { getNextSequenceValue } from "../utils/sequenceGenerator.js";
 
 const detectSchema = new mongoose.Schema({
     detectid: {
