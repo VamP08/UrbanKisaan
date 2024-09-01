@@ -10,13 +10,14 @@ const PlotSchema = new mongoose.Schema({
 
     },
     userid: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: User
     },
     cropid: {
         type: Number,
         required: true,
+        unique: true,
         ref: Crop
     },
     detectstatus: {

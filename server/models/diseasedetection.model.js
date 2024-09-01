@@ -7,7 +7,6 @@ import { getNextSequenceValue } from "../utils/sequenceGenerator.js";
 const detectSchema = new mongoose.Schema({
     detectid: {
         type: Number,
-        required: true,
         unique: true,
     },
     detectstatus: {
@@ -16,11 +15,11 @@ const detectSchema = new mongoose.Schema({
     },
     diseaseid: {
         type: Number,
-        required: false,
+        required: true,
         ref: Disease
     },
     userid: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: User
     },
@@ -51,7 +50,7 @@ const detectSchema = new mongoose.Schema({
 // Pre-save hook to generate sequential userId
 detectSchema.pre('save', async function (next) {
     if (this.isNew) {
-        this.detectid = await getnext('detectid');
+        this.detectid = await getNextSequenceValue('detectid');
     }
     next();
 });
