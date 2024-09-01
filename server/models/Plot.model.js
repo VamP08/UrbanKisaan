@@ -7,17 +7,15 @@ import { getNextSequenceValue } from "../utils/sequenceGenerator.js";
 const PlotSchema = new mongoose.Schema({
     Plotid: {
         type: Number,
-
     },
     userid: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true,
         ref: User
     },
     cropid: {
         type: Number,
         required: true,
-        unique: true,
         ref: Crop
     },
     detectstatus: {

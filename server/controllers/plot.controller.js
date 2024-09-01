@@ -10,8 +10,13 @@ export const addPlot = async (req, res) => {
             cropsowingdate: new Date(cropsowingdate),
             detectstatus: 'Not detected' // Default status
         });
-        
-        await newPlot.save();
+
+        try {
+            await newPlot.save();
+            console.log('Plot saved successfully');
+        } catch (error) {
+            console.error('Error saving plot:', error);
+        }
         
         res.status(201).json({ success: true, message: 'Plot added successfully', plot: newPlot });
     } catch (error) {

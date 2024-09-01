@@ -4,7 +4,6 @@ const cropSchema = new mongoose.Schema({
     cropid: {
         type: Number,
         required: true,
-        unique: true,
     },
     cropname: {
         type: String,

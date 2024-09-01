@@ -25,18 +25,18 @@ export default function App() {
     <Header />
       <ErrorBoundary>
       <Routes>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/add-plot' element={<AddPlot />} />
-        <Route path='/disease' element={<Disease />} />
-        <Route path='/crop' element={<Crop />} />
-        <Route path='/detect' element={<DetectDisease />} />     
-        <Route path='/community' element={<Community />} />     
-        <Route path='/sign-in' element={<Signin />} />     
-        <Route path='/sign-up' element={<Signup />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/add-plot' element={<AddPlot />} />
+          <Route path='/disease' element={<Disease />} />
+          <Route path='/crop' element={<Crop />} />
+          <Route path='/detect' element={<DetectDisease />} />     
+          <Route path='/community' element={<Community />} />     
         </Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/sign-in' element={<Signin />} />     
+        <Route path='/sign-up' element={<Signup />} />
         <Route path='/about' element={<About />} />
       </Routes>
       </ErrorBoundary>

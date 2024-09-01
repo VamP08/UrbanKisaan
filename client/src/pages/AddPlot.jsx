@@ -42,7 +42,6 @@ const AddPlot = () => {
           cropsowingdate: sowingDate
         })
       });
-      console.log(response)
       if (!response.ok) throw new Error('Failed to add plot');
       
       // Redirect to dashboard on success
