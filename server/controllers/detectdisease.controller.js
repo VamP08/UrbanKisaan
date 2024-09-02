@@ -41,7 +41,8 @@ export const detectDisease = async (req, res, next) => {
         // Update the plot's detection status
         let plot = await Plot.findOne({ Plotid:plotid });
         let crop = await Crop.findOne({cropid:plot.cropid})
-        await Plot.findByIdAndUpdate(plot.plotid, { detectstatus: diseaseName });
+        console.log(plot.Plotid)
+        await Plot.findByIdAndUpdate(plot._id, { detectstatus: diseaseName });
 
         // Create a new detection entry
         const detectEntry = new Detect({
@@ -56,7 +57,7 @@ export const detectDisease = async (req, res, next) => {
 
         await detectEntry.save();
 
-        // Respond with the disease name and crop name
+        // Respond with the disease and crop
         res.status(200).json({ disease , crop });
     } catch (error) {
         console.error("Error detecting disease:", error);

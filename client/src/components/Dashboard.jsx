@@ -74,7 +74,6 @@ const Dashboard = () => {
                 {cropDetails.map((crop, index) => (
                     <li key={index}>
                         <h3>Name : {crop.name}</h3>
-                        <p>description: {crop.description}</p> 
                         <p>Season: {crop.optimalseason}</p>
                         <p>State: {crop.optimalstate}</p>
                     </li>
