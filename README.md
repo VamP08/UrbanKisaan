@@ -127,9 +127,3 @@ You can deploy the frontend to services like Netlify or Vercel, and the backend 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Contributors
-
-- **[Himmatram Chaudhary]** - *Developer* - [GitHub](https://github.com/himmat404)
-- **[Pratham Rangunwala]** - *Developer* - [GitHub](https://github.com/VamP08)
-- **[Mohking]** - *Developer* - [GitHub](https://github.com/Mohking1)
